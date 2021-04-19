@@ -9,6 +9,7 @@ node {
        withMaven(jdk: 'java-default', maven: 'maven-default') {
                     sh 'mvn -B -DskipTests clean install'
                 }
+     }
    }
   catch(err)
   {
