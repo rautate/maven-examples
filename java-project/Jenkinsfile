@@ -8,8 +8,9 @@ node {
      stage ('mvn install') {
        withEnv(["MVN_HOME=$mvnHome"]) {
             sh '"$MVN_HOME/bin/mvn" clean install'
-     }
-  }
+            }
+        }
+   }
   catch(err)
   {
     currentBuild.result ="FAILURE"
