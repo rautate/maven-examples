@@ -6,10 +6,9 @@ node {
          mvnHome = tool 'maven-default'
     }
      stage ('mvn install') {
-       withEnv(["MVN_HOME=$mvnHome"]) {
-            sh '"$MVN_HOME/bin/mvn" clean install -f java-project/pom.xml'
-            }
-        }
+       withMaven(jdk: 'java-default', maven: 'maven-default') {
+                    sh 'mvn -B -DskipTests clean install'
+                }
    }
   catch(err)
   {
