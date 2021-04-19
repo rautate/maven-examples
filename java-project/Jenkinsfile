@@ -1,1 +1,19 @@
-
+node {
+  
+   try{
+    stage ('Preparation') {
+        git 'https://github.com/rautate/maven-examples.git'
+         mvnHome = tool 'maven-default'
+    }
+     stage ('mvn install') {
+       withEnv(["MVN_HOME=$mvnHome"]) {
+            sh '"$MVN_HOME/bin/mvn" clean install'
+     }
+  }
+  catch(err)
+  {
+    currentBuild.result ="FAILURE"
+    step([$class: 'Mailer', notifyUnstableEveryBuild:true, recipients:'', sendToIndividuals: true])
+    throw err
+  }
+}
